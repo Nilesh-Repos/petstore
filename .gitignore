@@ -10,3 +10,5 @@
 *.properties
 .env
 .terraform/
+.terraform/
+*.exe
