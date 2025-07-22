@@ -1,6 +1,6 @@
 - name: docker build and push
-  hosts: localhost # Replace with the hostname or IP address of your target server
-  become: yes  # Run tasks with sudo privileges
+  hosts: 13.235.103.108 # Replace with the hostname or IP address of your target server
+  become: true  # Run tasks with sudo privileges
 
   tasks:
     - name: Update apt package cache
