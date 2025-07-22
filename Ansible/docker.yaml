@@ -1,8 +1,12 @@
 - name: docker build and push
-  hosts: local  # Replace with the hostname or IP address of your target server
+  hosts: localhost # Replace with the hostname or IP address of your target server
+  connection: local
   become: yes  # Run tasks with sudo privileges
 
   tasks:
+    - name: Print debug
+      debug:
+        msg: "Running on localhost"
     - name: Update apt package cache
       apt:
         update_cache: yes   
