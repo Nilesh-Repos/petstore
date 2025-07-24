@@ -1,8 +1,13 @@
 - name: docker build and push
-  hosts: 192.168.146.128 # Replace with the hostname or IP address of your target server
-  become: true  # Run tasks with sudo privileges
+  hosts: localhost
+  connection: local 
+  #become: true   Run tasks with sudo privileges
 
   tasks:
+    - name: Example
+      debug:
+        msg: "Running on local machine"
+        
     - name: Update apt package cache
       apt:
         update_cache: yes   
