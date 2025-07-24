@@ -1,7 +1,7 @@
 - name: docker build and push
   hosts: localhost
   connection: local 
-  #become: true   Run tasks with sudo privileges
+  become: true  
 
   tasks:
     - name: Example
