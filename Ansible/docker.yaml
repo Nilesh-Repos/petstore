@@ -3,14 +3,21 @@
   connection: local 
   become: true  
 
-  tasks:
-    - name: Example
-      debug:
-        msg: "Running on local machine"
-        
+  tasks:    
     - name: Update apt package cache
       apt:
-        update_cache: yes   
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start and enable Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
 
     - name: Build Docker Image
       command: docker build -t petstore .
