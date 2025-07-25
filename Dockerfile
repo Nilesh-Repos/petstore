@@ -18,5 +18,5 @@ FROM openjdk:11-jdk-slim
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 RUN chmod +x ./mvnw
-RUN ./mvnw clean package
+RUN ./mvnw clean package -Dlicense.skip=true
 CMD ./mvnw cargo:run -P tomcat90
