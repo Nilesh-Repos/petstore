@@ -32,4 +32,4 @@
       command: docker push nileshdoc141/petstore:latest
 
     - name: Run container
-      command: docker run -d --name pet1 -p 8081:8080 nileshdoc141/petstore:latest
+      command: docker run -d -it --name pet1 -p 8081:8080 nileshdoc141/petstore:latest
