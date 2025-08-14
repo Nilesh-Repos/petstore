@@ -52,5 +52,9 @@ COPY --from=build /usr/src/myapp/target/*.war /opt/tomcat/webapps/
 # Expose Tomcat port
 EXPOSE 8080
 
+# Health check every 30s, 3 retries before marking unhealthy
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD curl -f http://localhost:8080/ || exit 1
+
 # Run Tomcat in foreground
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
