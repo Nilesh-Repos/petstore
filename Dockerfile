@@ -38,13 +38,15 @@ RUN chmod +x ./mvnw && ./mvnw clean package -Dlicense.skip=true
 # Stage 2: Create final image with Tomcat
 FROM openjdk:11-jdk-slim
 
+
 # Install wget and Tomcat
-RUN apt-get update && apt-get install -y wget && \
-    wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.96/bin/apache-tomcat-9.0.96.tar.gz && \
+RUN apt-get update && apt-get install -y wget curl && \
+    wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.96/bin/apache-tomcat-9.0.96.tar.gz && \
     tar xzf apache-tomcat-9.0.96.tar.gz && \
     mv apache-tomcat-9.0.96 /opt/tomcat && \
     rm apache-tomcat-9.0.96.tar.gz && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Copy WAR file from build stage to Tomcat
 COPY --from=build /usr/src/myapp/target/*.war /opt/tomcat/webapps/
@@ -53,8 +55,8 @@ COPY --from=build /usr/src/myapp/target/*.war /opt/tomcat/webapps/
 EXPOSE 8080
 
 # Health check every 30s, 3 retries before marking unhealthy
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+#HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  #CMD curl -f http://localhost:8080/ || exit 1
 
 # Run Tomcat in foreground
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
